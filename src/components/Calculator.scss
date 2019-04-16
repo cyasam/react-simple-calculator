@@ -1,0 +1,97 @@
+@import '../variables.scss';
+$key-size: 57px;
+
+.calculator {
+  width: $key-size * 4 + 5;
+  background: $readout;
+  border-right: 1px solid #646464;
+  border-bottom: 1px solid #343434;
+  border-left: 1px solid #646464;
+  border-top: 1px solid #939393;
+  border-radius: 6px;
+  box-shadow: 0 0 20px 0 rgba(50, 50, 50, 0.75);
+}
+
+.readout {
+  font-size: 45px;
+  color: $readout-color;
+  background: transparent;
+  box-sizing: border-box;
+  display: block;
+  width: inherit;
+  height: 1.3em;
+  border: 0;
+  margin: 8px 0 0 0;
+  text-align: right;
+  padding: 0 18px;
+  font-family: $font-family-light;
+}
+
+.keys {
+  display: flex;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+
+  .key:first-child {
+    margin-left: 0px;
+  }
+}
+
+.key {
+  width: $key-size;
+  height: $key-size - 10;
+  font-size: 22px;
+  border: 0;
+  border-top: 1px solid $readout;
+  margin-left: 1px;
+  font-family: $font-family;
+  cursor: pointer;
+
+  &.double {
+    width: 115px;
+    text-align: left;
+    padding-left: 25px;
+    border-bottom-left-radius: 6px;
+  }
+
+  &.last {
+    border-bottom-right-radius: 6px;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+.misc {
+  background: $key-misc;
+  font-size: 20px;
+  font-family: $font-family;
+  &:active {
+    background-color: darken($key-misc, 15%);
+  }
+}
+
+.function {
+  background: $key-function;
+  color: $readout-color;
+  font-size: 25px;
+  &:active {
+    background-color: darken($key-function, 15%);
+  }
+}
+
+.numeric {
+  background: $key-numeric;
+  font-family: $font-family;
+  &:active {
+    background-color: darken($key-numeric, 15%);
+  }
+}
