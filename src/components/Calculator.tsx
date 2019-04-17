@@ -8,6 +8,7 @@ import ResultScreen from './ResultScreen';
 import CalcOperations from './FourOperations';
 
 const Calculator = () => {
+  const [calculated, setCalculated] = useState(false);
   const [calcOperator, setCalcOperator] = useState<string | null>(null);
   const [firstNumber, setFirstNumber] = useState('0');
   const [secondNumber, setSecondNumber] = useState('0');
@@ -15,12 +16,25 @@ const Calculator = () => {
   const [readout, setReadout] = useState(firstNumber);
 
   const handleReadout = (value1: string, value2: string) => {
-    const number = parseInt(value1) ? `${value1}${value2}` : value2;
+    if (value2 === '.' && value1.includes('.')) {
+      return value1;
+    }
+
+    if (value1 === '0') {
+      if (value2 === '.') {
+        return `${value1}${value2}`;
+      }
+      return value2;
+    }
+
+    const number = `${value1}${value2}`;
 
     return number;
   };
 
   const handleClickedNumber = (value: string) => {
+    setCalculated(false);
+
     if (calcOperator) {
       let readout = secondNumber;
       if (resultNumber) {
@@ -40,7 +54,7 @@ const Calculator = () => {
   };
 
   const handleCalcOperator = (operator: string) => {
-    if (operator === '=' || (operator !== calcOperator && !resultNumber)) {
+    if (operator === '=' || !calculated) {
       calculateResult();
     }
 
@@ -73,6 +87,7 @@ const Calculator = () => {
     setFirstNumber(resultString);
     setResultNumber(result);
     setReadout(resultString);
+    setCalculated(true);
   };
 
   return (

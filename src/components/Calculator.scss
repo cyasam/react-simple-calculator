@@ -1,5 +1,5 @@
 @import '../variables.scss';
-$key-size: 57px;
+$key-size: 64px;
 
 .calculator {
   width: $key-size * 4 + 5;
@@ -55,7 +55,7 @@ $key-size: 57px;
   cursor: pointer;
 
   &.double {
-    width: 115px;
+    width: $key-size * 2 + 1;
     text-align: left;
     padding-left: 25px;
     border-bottom-left-radius: 6px;
