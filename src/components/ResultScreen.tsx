@@ -1,9 +1,13 @@
 import React from 'react';
 
-const ResultScreen = () => {
+interface ResultScreenProps {
+  readout: number | string;
+}
+
+const ResultScreen = ({ readout }: ResultScreenProps) => {
   return (
     <>
-      <input className="readout" type="readonly" value="0" disabled />
+      <input className="readout" type="readonly" value={readout} disabled />
     </>
   );
 };
