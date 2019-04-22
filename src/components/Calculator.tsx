@@ -14,6 +14,7 @@ const Calculator = () => {
   const [secondNumber, setSecondNumber] = useState('0');
   const [resultNumber, setResultNumber] = useState<number | null>(null);
   const [readout, setReadout] = useState(firstNumber);
+  const [acState, setAcState] = useState(true);
 
   const handleReadout = (value1: string, value2: string) => {
     if (value2 === '.' && value1.includes('.')) {
@@ -53,13 +54,79 @@ const Calculator = () => {
     }
   };
 
-  const handleCalcOperator = (operator: string) => {
-    if (operator === '=' || !calculated) {
-      calculateResult();
-    }
+  const handleCButtonClick = () => {
+    setAcState(true);
 
-    if (operator !== '=') {
+    if (calcOperator) {
+      if (Number(secondNumber)) {
+        if (calculated) {
+          setFirstNumber('0');
+          setResultNumber(null);
+          setCalcOperator(null);
+        }
+        setSecondNumber('0');
+        setReadout('0');
+      } else {
+        setCalcOperator(null);
+      }
+    } else {
+      setFirstNumber('0');
+      setReadout('0');
+    }
+  };
+
+  const handleACButtonClick = () => {
+    setFirstNumber('0');
+    setSecondNumber('0');
+    setReadout('0');
+    setResultNumber(null);
+    setCalcOperator(null);
+  };
+
+  useEffect(() => {
+    if (Number(firstNumber)) {
+      setAcState(false);
+    }
+  }, [firstNumber]);
+
+  const handleCalcOperator = (operator: string) => {
+    if (operator === '=') {
+      calculateResult();
+    } else {
       setCalcOperator(operator);
+    }
+  };
+
+  const handleNegativePositiveButtonClick = () => {
+    const secondNumberVal = Number(secondNumber);
+    if (calcOperator && secondNumberVal) {
+      const readout = (secondNumberVal * -1).toString();
+      setSecondNumber(readout);
+      setReadout(readout);
+    } else {
+      const firstNumberVal = Number(firstNumber);
+      if (firstNumberVal) {
+        const readout = (firstNumberVal * -1).toString();
+        setFirstNumber(readout);
+        setReadout(readout);
+      }
+    }
+  };
+
+  const handlePercentageButtonClick = () => {
+    const secondNumberVal = Number(secondNumber);
+    const firstNumberVal = Number(firstNumber);
+
+    if (calcOperator && secondNumberVal) {
+      const readout = ((firstNumberVal * secondNumberVal) / 100).toString();
+      setSecondNumber(readout);
+      setReadout(readout);
+    } else {
+      if (firstNumberVal) {
+        const readout = (firstNumberVal / 100).toString();
+        setFirstNumber(readout);
+        setReadout(readout);
+      }
     }
   };
 
@@ -95,7 +162,15 @@ const Calculator = () => {
       <ResultScreen readout={readout} />
       <div className="keys">
         <div className="column">
-          <OtherFunctions />
+          <OtherFunctions
+            acState={acState}
+            handleCButtonClick={handleCButtonClick}
+            handleACButtonClick={handleACButtonClick}
+            handleNegativePositiveButtonClick={
+              handleNegativePositiveButtonClick
+            }
+            handlePercentageButtonClick={handlePercentageButtonClick}
+          />
           <Numbers handleClickedNumber={handleClickedNumber} />
         </div>
 
