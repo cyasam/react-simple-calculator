@@ -154,10 +154,10 @@ const Calculator = () => {
       default:
         result = value1 + value2;
     }
-
+    result = Number(result.toPrecision(12));
     const resultString = result.toString();
     setFirstNumber(resultString);
-    setResultNumber(result);
+    setResultNumber(Number(resultString));
     setReadout(resultString);
     setCalculated(true);
   };
