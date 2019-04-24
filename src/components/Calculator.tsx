@@ -35,6 +35,7 @@ const Calculator = () => {
 
   const handleClickedNumber = (value: string) => {
     setCalculated(false);
+    setAcState(false);
 
     if (calcOperator) {
       let readout = secondNumber;
@@ -90,6 +91,8 @@ const Calculator = () => {
   }, [firstNumber]);
 
   const handleCalcOperator = (operator: string) => {
+    setAcState(false);
+
     if (operator === '=') {
       calculateResult();
     } else {
@@ -98,6 +101,7 @@ const Calculator = () => {
   };
 
   const handleNegativePositiveButtonClick = () => {
+    setAcState(false);
     const secondNumberVal = Number(secondNumber);
     if (calcOperator && secondNumberVal) {
       const readout = (secondNumberVal * -1).toString();
@@ -114,6 +118,7 @@ const Calculator = () => {
   };
 
   const handlePercentageButtonClick = () => {
+    setAcState(false);
     const secondNumberVal = Number(secondNumber);
     const firstNumberVal = Number(firstNumber);
 
