@@ -156,8 +156,9 @@ const Calculator = () => {
     }
     result = Number(result.toPrecision(12));
     const resultString = result.toString();
+
     setFirstNumber(resultString);
-    setResultNumber(Number(resultString));
+    setResultNumber(result);
     setReadout(resultString);
     setCalculated(true);
   };
